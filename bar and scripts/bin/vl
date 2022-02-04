@@ -1,0 +1,23 @@
+#! /bin/bash
+
+src1="alsa_output.pci-0000_00_1b.0.analog-stereo"
+src2="alsa_output.pci-0000_01_00.1.hdmi-stereo"
+
+vol="$(pamixer --get-volume)"
+mut="$(pamixer --get-mute)"
+snk="$(pactl get-default-sink)"
+
+if [[ "$mut" == "true" ]]
+then
+	echo -n "Mute - "
+fi
+
+echo -n "Vol: $vol% - "
+
+if [[ "$snk" == "$src1" ]]
+then
+	echo -n "CUFFIE"
+elif [[ "$snk" == "$src2" ]]
+then
+	echo -n "HDMI"
+fi
